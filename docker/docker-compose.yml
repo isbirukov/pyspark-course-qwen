@@ -2,13 +2,17 @@ version: '3.8'
 services:
   spark-jupyter:
     image: jupyter/pyspark-notebook:latest
-    container_name: pyspark_jupyter_lab_qwen
+    container_name: pyspark_jupyter_lab_qwen1
     ports:
       - "8888:8888" # Проброс порта Jupyter
       - "4040:4040" # Проброс порта Spark UI
     volumes:
-      - ./workspace:/home/jovyan/work
-      - ./data:/home/jovyan/data
+      - ../modules:/home/jovyan/work/modules
+      - ../data:/home/jovyan/work/data
+      - ../labs:/home/jovyan/work/labs
+      - ../tests:/home/jovyan/work/tests
+      - ../project:/home/jovyan/work/project
+      - ../notes:/home/jovyan/work/notes
     environment:
       - SPARK_OPTS=--master spark://spark-notebook:7077 --executor-cores 4 --driver-memory 4g --executor-memory 4g
       - JUPYTER_ENABLE_LAB=yes
@@ -17,3 +21,7 @@ services:
      # Команда для запуска (Jupyter Lab)
     command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --NotebookApp.allow_origin='*'
     user: root
+
+networks:
+  pyspark-network:
+    driver: bridge
