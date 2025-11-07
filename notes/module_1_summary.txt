@@ -1,0 +1,37 @@
+Модуль 1: Введение в PySpark
+
+ТЕОРИЯ:
+- Apache Spark - система обработки больших данных с открытым исходным кодом
+- PySpark - Python API для Apache Spark
+- RDD (Resilient Distributed Dataset) - фундаментальная структура данных
+- DataFrame - высокоуровневая абстракция для структурированных данных
+- Lazy Evaluation - вычисления происходят только при вызове действий
+- SparkSession - основная точка входа в PySpark
+
+АРХИТЕКТУРА:
+- Driver Program: основной процесс приложения
+- Cluster Manager: управление ресурсами (Standalone, YARN, Mesos)
+- Executor: процессы на рабочих узлах
+- DAG Scheduler: планировщик выполнения задач
+- Catalyst Optimizer: оптимизатор SQL и DataFrame запросов
+
+КОНФИГУРАЦИЯ:
+- spark.executor.memory: память для каждого executor
+- spark.sql.adaptive.enabled: включение адаптивного планирования
+- spark.app.name: имя приложения
+
+BEST PRACTICES:
+- Использование DataFrame вместо RDD при возможности
+- Правильное определение числа partitions
+- Кэширование часто используемых данных
+- Использование подходящих форматов хранения (Parquet)
+
+ПРИМЕР СОЗДАНИЯ SPARKSESSION:
+spark = SparkSession.builder \
+    .appName("AppName") \
+    .config("spark.sql.adaptive.enabled", "true") \
+    .getOrCreate()
+
+ТИПЫ ОПЕРАЦИЙ:
+- Трансформации: filter(), select(), join() - lazy
+- Действия: collect(), count(), show() - запускают выполнение
